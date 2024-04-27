@@ -1,0 +1,81 @@
+#include "lib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+
+int* resize(int* old_vector, int old_size, int new_size)
+{
+    int* new_vector = new int[new_size];
+    if(new_size > old_size) // El nuevo vector es más grande. 
+    {
+        for(uint8_t k = 0 ; k < old_size ; k++)
+        {
+            new_vector[k] = old_vector[k];
+        }
+    }
+    if(new_size < old_size) // El nuevo vector es más chico. 
+    {
+        for(uint8_t k = 0 ; k < new_size ; k++)
+        {
+            new_vector[k] = old_vector[k];
+        }
+    }
+    delete []old_vector; // Deleteo el vector viejo que mandé desde mi main.
+    old_vector = NULL; // Me aseguro que el puntero no quede apuntando a memoria que ya no pertenece a mi programa.
+    return new_vector;
+}
+
+int* removeItem(int* vec,int vec_size,int item_pos)
+{
+    int* resulting_vector = new int[vec_size - 1];
+    for(uint8_t k = 0 ; k < item_pos ; k++)
+    {
+        resulting_vector[k]=vec[k];
+    }
+    for(uint8_t k = item_pos + 1 ; k < vec_size - 1 ; k++)
+    {
+        resulting_vector[k]=vec[k];
+    }
+    delete []vec; // Deleteo el vector viejo que mandé desde mi main.
+    vec = NULL; // Me aseguro que el puntero no quede apuntando a memoria que ya no pertenece a mi programa.
+    return resulting_vector;
+}
+
+int* insertItem(int* vec,int vec_size,int insert_pos,int insert_value)
+{
+    int* resulting_vector = new int[vec_size + 1];
+    for(uint8_t k = 0 ; k < insert_pos ; k++)
+    {
+        resulting_vector[k]=vec[k];
+    }
+    resulting_vector[insert_pos] = insert_value;
+    for(uint8_t k = insert_pos + 1 ; k < vec_size + 1 ; k++)
+    {
+        resulting_vector[k]=vec[k];
+    }
+    delete []vec; // Deleteo el vector viejo que mandé desde mi main.
+    vec = NULL; // Me aseguro que el puntero no quede apuntando a memoria que ya no pertenece a mi programa.
+    return resulting_vector;
+}
+
+int* concat(int* vec_left,int left_size,int* vec_right,int right_size)
+{
+    int* resulting_vector = new int[left_size + right_size];
+    // Copying the values of the vec_left in the resulting_vector
+    uint8_t k;
+    for(k = 0 ; k < left_size ; k++)
+    {
+        resulting_vector[k]=vec_left[k];
+    }
+    // Copying the values of the vec_right in the resulting_vector
+    uint8_t m;
+    for(m = 0 ; m < right_size; m++)
+    {
+        resulting_vector[m+k]=vec_left[m];
+    }
+    delete []vec_left; // Deleteo el vector viejo que mandé desde mi main.
+    vec_left = NULL; // Me aseguro que el puntero no quede apuntando a memoria que ya no pertenece a mi programa
+    delete []vec_right; // Deleteo el vector viejo que mandé desde mi main.
+    vec_right = NULL; // Me aseguro que el puntero no quede apuntando a memoria que ya no pertenece a mi programa
+    return resulting_vector;
+}
