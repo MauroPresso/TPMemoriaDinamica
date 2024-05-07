@@ -2,15 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void mostrar(int *vec, int cant)
-{
-    printf("Vector:\n");
-    for(int i = 0 ; i < cant ; i++)
-    {
-        printf("%d\t", vec[i]);
-    }
-}
-
 int* resize(int* old_vector, int old_size, int new_size)
 {
     int* new_vector = new int[new_size];
