@@ -1,5 +1,7 @@
 #pragma once
 
+void mostrar(int *vec, int cant);
+
 int* resize(int* vec, int size, int new_size);
 
 int* removeItem(int* vec,int vec_size,int item_pos);
