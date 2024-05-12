@@ -2,6 +2,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void mostrar(int *vec, int cant)
+{
+    for(int i = 0 ; i < cant ; i++)
+    {
+        printf("%d\t", vec[i]);
+    }
+}
+
+
 int* resize(int* old_vector, int old_size, int new_size)
 {
     int* new_vector = new int[new_size];
@@ -26,14 +35,20 @@ int* resize(int* old_vector, int old_size, int new_size)
 
 int* removeItem(int* vec,int vec_size,int item_pos)
 {
+    int aux;
     int* resulting_vector = new int[vec_size - 1];
     for(int k = 0 ; k < item_pos ; k++)
     {
         resulting_vector[k]=vec[k];
     }
+    aux = vec[item_pos + 1];
     for(int k = item_pos + 1 ; k < vec_size - 1 ; k++)
     {
-        resulting_vector[k]=vec[k];
+        if(k == item_pos + 1)
+        {
+            resulting_vector[item_pos] = aux;
+        }
+        resulting_vector[k]=vec[k+1]; // vec[] solo llega hasta vec_size. Pues, (vec_size - 1) + 1 = vec_size.
     }
     delete []vec; // Deleteo el vector viejo que mandé desde mi main.
     vec = NULL; // Me aseguro que el puntero no quede apuntando a memoria que ya no pertenece a mi programa.
@@ -42,15 +57,22 @@ int* removeItem(int* vec,int vec_size,int item_pos)
 
 int* insertItem(int* vec,int vec_size,int insert_pos,int insert_value)
 {
+    int aux;
     int* resulting_vector = new int[vec_size + 1];
     for(int k = 0 ; k < insert_pos ; k++)
     {
         resulting_vector[k]=vec[k];
     }
+    aux = vec[insert_pos];
     resulting_vector[insert_pos] = insert_value;
     for(int k = insert_pos + 1 ; k < vec_size + 1 ; k++)
     {
-        resulting_vector[k]=vec[k];
+        if(k == insert_pos + 1)
+        {
+            resulting_vector[insert_pos + 1] = aux;
+            k++;
+        }
+        resulting_vector[k]=vec[k-1]; // vec[] solo llega hasta vec_size. Pues, (vec_size + 1) - 1 = vec_size.
     }
     delete []vec; // Deleteo el vector viejo que mandé desde mi main.
     vec = NULL; // Me aseguro que el puntero no quede apuntando a memoria que ya no pertenece a mi programa.
